@@ -82,7 +82,7 @@ class LoginResData extends ApiData {
 
 
 
-class HexWebGeneralService extends HexGeneralService {
+class HexWebService extends HexGeneralService {
   constructor() {
     super();
     this._port = 3000;
@@ -210,4 +210,4 @@ class HexWebGeneralService extends HexGeneralService {
 
 }
 
-module.exports = HexWebGeneralService;
+module.exports = HexWebService;
