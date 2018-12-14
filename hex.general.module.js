@@ -318,7 +318,7 @@ class HexGeneralModule {
   * Start Module
   *
   * @param {function} cb(stat, msg, data) - Callback
-  * - {PsKeyStatus} stat
+  * - {HexWebKeyStatus} stat
   * - {string} msg
   * - {object} data - Generated API key
   *   - {string} apiKey
