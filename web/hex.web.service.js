@@ -1,5 +1,3 @@
-const uuidv4 = require('uuid/v4');
-const crypto = require('crypto');
 const express = require('express');
 const http = require('http');
 const https = require('https');
@@ -8,12 +6,12 @@ const fs = require('fs');
 const path = require('path');
 
 const HexGeneralService = require('../hex.general.service');
-const HexWebBaseAuthMgr = require('./hex.web.base.auth.mgr');
-const HexWebBaseKeyMgr = require('./hex.web.base.key.mgr');
-const HexWebBaseSessionMgr = require('./hex.web.base.session.mgr');
-const HexWebAuthStatus = require('./types/hex.web.auth.status');
-const HexWebUserDataStatus = require('./types/hex.web.user.data.status');
-const HexAesHelper = require('../crypt/hex.aes.helper');
+//const HexWebBaseAuthMgr = require('./hex.web.base.auth.mgr');
+//const HexWebBaseKeyMgr = require('./hex.web.base.key.mgr');
+//const HexWebBaseSessionMgr = require('./hex.web.base.session.mgr');
+//const HexWebAuthStatus = require('./types/hex.web.auth.status');
+//const HexWebUserDataStatus = require('./types/hex.web.user.data.status');
+//const HexAesHelper = require('../crypt/hex.aes.helper');
 
 const checker = require('../tools/hex.checker');
 const validator = require('../tools/hex.validator');
@@ -22,69 +20,15 @@ const util = require('../tools/hex.util');
 const VALID_DIFF_MS = 5000;
 const HEART_BEAT_INT_MIN = 15;
 
-const MOD_AUTH_MGR = 'authMgr';
-const MOD_KEY_MGR = 'keyMgr';
-const MOD_SESSION_MGR = 'sessionMgr';
+//const MOD_AUTH_MGR = 'authMgr';
+//const MOD_KEY_MGR = 'keyMgr';
+//const MOD_SESSION_MGR = 'sessionMgr';
 
 const PATH_CERT = './data/cert/';
 
-
-const PsDataKeys = {
-  USER_ID: 'user_id',
-  PASSWORD: 'password',
-  TS: 'ts',
-  HEART_BEAT: 'heartbeat',
-  API_KEY: 'api_key',
-  SECURE_KEY: 'secure_key'
-};
-
-class ApiData {
-  constructor() {
-  }
-
-  validate(data) {
-    return this._validate(data);
-  }
-
-  _validate(data) {
-
-  }
-}
-
-class LoginReqData extends ApiData {
-  constructor() {
-    this[PsDataKeys.USER_ID] = null;
-    this[PsDataKeys.PASSWORD] = null;
-    this[PsDataKeys.TS] = null;
-  }
-
-  /**
-  * @override
-  */
-  static validate(data) {
-    var res = false;
-    res |= checker.isStr(data[PsDataKeys.USER_ID]);
-    res |= checker.isStr(data[PsDataKeys.PASSWORD]);
-    res |= checker.isStr(data[PsDataKeys.TS]);
-    return res;
-  }
-}
-
-class LoginResData extends ApiData {
-  constructor(apiKey, secureKey, heartBeat) {
-    super();
-    this[PsDataKeys.API_KEY] = apiKey;
-    this[PsDataKeys.SECURE_KEY] = secureKey;
-    this[PsDataKeys.HEART_BEAT] = heartBeat;
-  }
-
-}
-
-
-
 class HexWebService extends HexGeneralService {
-  constructor() {
-    super();
+  constructor(type) {
+    super(type);
     this._port = 3000;
     this._isSecure = true;
     this._sslKeyFile = PATH_CERT + 'server.key';
@@ -114,9 +58,9 @@ class HexWebService extends HexGeneralService {
   }
 
   _defineExtModule(config) {
-    this._regExtModule(MOD_AUTH_MGR, HexWebBaseAuthMgr);
-    this._regExtModule(MOD_KEY_MGR, HexWebBaseKeyMgr);
-    this._regExtModule(MOD_SESSION_MGR, HexWebBaseSessionMgr);
+    //this._regExtModule(MOD_AUTH_MGR, HexWebBaseAuthMgr);
+    //this._regExtModule(MOD_KEY_MGR, HexWebBaseKeyMgr);
+    //this._regExtModule(MOD_SESSION_MGR, HexWebBaseSessionMgr);
   }
 
   _init(config, cb) {
@@ -154,9 +98,9 @@ class HexWebService extends HexGeneralService {
   }
 
   _postInit(config) {
-    this._authMgr = this._getExtModule(MOD_AUTH_MGR);
-    this._keyMgr = this._getExtModule(MOD_KEY_MGR);
-    this._sessionMgr = this._regExtModule(MOD_SESSION_MGR);
+    //this._authMgr = this._getExtModule(MOD_AUTH_MGR);
+    //this._keyMgr = this._getExtModule(MOD_KEY_MGR);
+    //this._sessionMgr = this._regExtModule(MOD_SESSION_MGR);
   }
 
   _startDetail(cb) {
@@ -181,7 +125,7 @@ class HexWebService extends HexGeneralService {
 
   _prepareServer() {
 
-    //this._regApiServices(this._webServer);
+    this._regPathHandler(this._webServer);
 
     if (this._isSecure) {
       return https.createServer(this._sslOptions, this._webServer);
@@ -190,23 +134,17 @@ class HexWebService extends HexGeneralService {
     }
   }
 
-  _regPathHandler() {
-
-  }
-
   _regStaticPath(webServer, webServicePath, localPath) {
     webServer.use(webServicePath, express.static(localPath));
   }
 
-
-  _regApiServices(webServer) {
+  _regPathHandler(webServer) {
 
   }
 
   _getApiPath(basePath, subPath) {
     return basePath + subPath;
   }
-
 
 }
 
