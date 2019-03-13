@@ -11,9 +11,14 @@ const CB_STAT_STOP = 2;
 const CB_STAT_RESTART = 3;
 
 class HexGeneralModule {
-  constructor() {
+  constructor(type) {
     this._id = 'Module';
     this._type = this.constructor.name;
+
+    if (checker.isNonEmptyStr(type)) {
+      this._type = type;
+    }
+
     this._extModuleRefMap = {};
     this._extModuleMap = {};
     this._config = null;
@@ -421,8 +426,6 @@ class HexGeneralModule {
     this._resolveAsyncStatusStop(true, cb);
   }
 
-
-
   _resolveAsyncStatusInit(isSuccess, cb, msg) {
     this._resolveAsyncStatusCheck(
       HexModuleStatus.INIT_OK, HexModuleStatus.INIT_ERROR,
@@ -491,7 +494,6 @@ class HexGeneralModule {
       this._checkAndCall(cbAry[i], this._status, msg, this);
     }
   }
-
 
   _logInfo() {
     var msg = format.str.apply(null, arguments);
