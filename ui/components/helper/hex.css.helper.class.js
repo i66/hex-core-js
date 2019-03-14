@@ -1,6 +1,6 @@
-var logger = require('../../tools/hex.logger');
-var checker = require('../../tools/hex.checker');
-var util = require('../../tools/hex.util');
+var logger = require('../../../tools/hex.logger');
+var checker = require('../../../tools/hex.checker');
+var util = require('../../../tools/hex.util');
 
 function HexCssHelperClass() {
   this._css = '';

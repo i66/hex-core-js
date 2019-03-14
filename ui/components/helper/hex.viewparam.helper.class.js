@@ -1,5 +1,5 @@
-var checker = require('../../tools/hex.checker');
-var util = require('../../tools/hex.util');
+var checker = require('../../../tools/hex.checker');
+var util = require('../../../tools/hex.util');
 
 const KEY_VIEW_ID = 'view_id';
 

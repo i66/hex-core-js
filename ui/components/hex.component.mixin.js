@@ -2,18 +2,18 @@
 var React = require('react');
 var createReactClass = require('create-react-class');
 
-var HexPropType = require('../types/hex.prop.type');
-var HexStoreDataMgr = require('../io/hex.store.data.mgr');
-var HexL10nMgr = require('../io/hex.l10n.mgr');
+var HexPropType = require('../../types/hex.prop.type');
+var HexStoreDataMgr = require('../../io/hex.store.data.mgr');
+var HexL10nMgr = require('../../io/hex.l10n.mgr');
 var HexCssHelperClass = require('./helper/hex.css.helper.class');
 var HexViewParamHelperClass = require('./helper/hex.viewparam.helper.class');
 var HexUiDataHelper = require('./helper/hex.ui.data.helper');
 var HexLifeCycleHelperClass = require('./helper/hex.lifecycle.helper.class');
 
-var logger = require('../tools/hex.logger');
-var checker = require('../tools/hex.checker');
-var util = require('../tools/hex.util');
-var format = require('../tools/hex.format');
+var logger = require('../../tools/hex.logger');
+var checker = require('../../tools/hex.checker');
+var util = require('../../tools/hex.util');
+var format = require('../../tools/hex.format');
 
 var _isPrototypeRender = false;
 
@@ -100,21 +100,19 @@ var HexComponentMixin = {
     }
   },
 
-// Public functions
-// -----------------------------------------------------------------
+  // Public functions
+  // -----------------------------------------------------------------
 
-
-
-// Private functions
-// -----------------------------------------------------------------
+  // Private functions
+  // -----------------------------------------------------------------
   _callIfDefined: function(func) {
     if (checker.isFunction(func)) {
       func();
     }
   },
 
-// Mixin Shared functions
-// -----------------------------------------------------------------
+  // Mixin Shared functions
+  // -----------------------------------------------------------------
   mxSetIsDebug: function(isDebug) {
     this._mxLifeCycleHelper.setDebug(isDebug);
   },
@@ -209,7 +207,7 @@ var HexComponentMixin = {
   mxGetState: function(key, defaultValue) {
     var val = this.state[key];
     if (!checker.isSet(val)) {
-        val = this._mxLifeCycleHelper.getInitStat(key);
+      val = this._mxLifeCycleHelper.getInitStat(key);
       if (!checker.isSet(val)) {
         val = defaultValue;
       }
@@ -266,8 +264,8 @@ var HexComponentMixin = {
     this.forceUpdate();
   },
 
-// Event functions
-// -----------------------------------------------------------------
+  // Event functions
+  // -----------------------------------------------------------------
   mxEmitEvent: function(eventType, param) {
     if (this.props.onEvent) {
       return this.props.onEvent(eventType, param);
@@ -285,9 +283,8 @@ var HexComponentMixin = {
     }
   },
 
-// Private functions (need to be overrided)
-// -----------------------------------------------------------------
-
+  // Private functions (need to be overrided)
+  // -----------------------------------------------------------------
 
 };
 

@@ -1,6 +1,6 @@
-var logger = require('../../tools/hex.logger');
-var checker = require('../../tools/hex.checker');
-var util = require('../../tools/hex.util');
+var logger = require('../../../tools/hex.logger');
+var checker = require('../../../tools/hex.checker');
+var util = require('../../../tools/hex.util');
 
 // Constructor
 function HexLifeCycleHelperClass(id, reactInstance) {
@@ -116,7 +116,6 @@ HexLifeCycleHelperClass.prototype.addCheckStatKey = function(key) {
 };
 */
 
-
 HexLifeCycleHelperClass.prototype.setResetPropKey =
 function(key, resetStateKeys) {
   this.resetPropKey = key;
@@ -166,7 +165,6 @@ HexLifeCycleHelperClass.prototype.updateStateSlient = function(key, val) {
   }
   this.target.state[key] = val;
 };
-
 
 HexLifeCycleHelperClass.prototype.shouldUpdate =
 function(nextProps, nextState) {
