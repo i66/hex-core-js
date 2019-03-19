@@ -2,7 +2,6 @@ var EventEmitter = require('events').EventEmitter;
 
 var checker = require('../../core/tools/hex.checker');
 
-var EboxUiDispatcher = require('../dispatcher/hex.dispatcher');
 // Constants and Types
 var HexActionType = require('../types/hex.action.type');
 
@@ -12,7 +11,6 @@ var ID_ACTION_READY = HexActionType.READY;
 var ID_ACTION_INIT = HexActionType.APP_INIT;
 
 var HexBasePathMgr = Object.assign({}, EventEmitter.prototype, {
-
 
   setAppId: function(appId) {
 
@@ -24,7 +22,6 @@ var HexBasePathMgr = Object.assign({}, EventEmitter.prototype, {
 
   init: function(id) {
     this._id = id;
-    //EboxUiDispatcher.register(this._handleEvent.bind(this));
     this._initDetail();
   },
 

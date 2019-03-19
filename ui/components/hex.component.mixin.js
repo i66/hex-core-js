@@ -234,6 +234,7 @@ var HexComponentMixin = {
     if (token.length == 1) {
       return res;
     }
+    /*
     return res.split('\n').map(function(item, key) {
       return (
         <span key={key}>
@@ -242,6 +243,7 @@ var HexComponentMixin = {
         </span>
       );
     });
+    */
   },
   mxGetResTpl: function(key) {
     var args = Array.prototype.slice.call(arguments);

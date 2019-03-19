@@ -1,5 +1,5 @@
-var checker = require('../tools/hex.checker');
-var logger = require('../tools/hex.logger');
+var checker = require('../../tools/hex.checker');
+var logger = require('../../tools/hex.logger');
 
 var _callbacks = [];
 var _promises = [];
@@ -16,29 +16,28 @@ var moduleId = 'BaseDispatcher';
 var BaseDispatcher = function() {};
 BaseDispatcher.prototype = Object.assign({}, BaseDispatcher.prototype, {
 
-/**
- * Registers a callback to be invoked with every dispatched payload. Returns
- * a token that can be used with `waitFor()`.
- */
+  /**
+   * Registers a callback to be invoked with every dispatched payload. Returns
+   * a token that can be used with `waitFor()`.
+   */
   register: function(callback) {
     var id = _prefix + _lastID++;
     _callbacks[id] = callback;
-  //  logger.info('Registered: ' + id, moduleId);
+    //  logger.info('Registered: ' + id, moduleId);
     return id;
   },
 
   unregister: function(id) {
-    if(!checker.isSet(_callbacks[id])){
-  //    logger.error('Callback with id ' + id + ' is not registered.', moduleId);
+    if (!checker.isSet(_callbacks[id])) {
+      //    logger.error('Callback with id ' + id + ' is not registered.', moduleId);
       return;
     }
     delete _callbacks[id];
   },
 
-
   dispatch: function(payload) {
     //logger.info('Dispatch: ' + JSON.stringify(payload), moduleId);
-    if(_isDispatching){
+    if (_isDispatching) {
       logger.error('Previous dispatch is not finished.', moduleId);
       return;
       // Defer?
@@ -54,25 +53,25 @@ BaseDispatcher.prototype = Object.assign({}, BaseDispatcher.prototype, {
     }
 
     this._stopDispatching();
-  /*
-    try {
-      for (var id in _callbacks) {
-        if (_isPending[id]) {
-          // Already running?
-          continue;
+    /*
+      try {
+        for (var id in _callbacks) {
+          if (_isPending[id]) {
+            // Already running?
+            continue;
+          }
+          this._invokeCallback(id);
         }
-        this._invokeCallback(id);
+      } catch (err){
+        logger.error('Error in dispatch:' + err, moduleId);
+      } finally {
+        this._stopDispatching();
       }
-    } catch (err){
-      logger.error('Error in dispatch:' + err, moduleId);
-    } finally {
-      this._stopDispatching();
-    }
-    */
+      */
   },
 
-  waitFor: function(ids){
-    if(!_isDispatching){
+  waitFor: function(ids) {
+    if (!_isDispatching) {
       return;
     }
     for (var ii = 0; ii < ids.length; ii++) {
@@ -82,7 +81,7 @@ BaseDispatcher.prototype = Object.assign({}, BaseDispatcher.prototype, {
         continue;
       }
 
-      if(!checker.isSet(_callbacks[id])){
+      if (!checker.isSet(_callbacks[id])) {
         logger.error('Wait id is not registered: ' + id, moduleId);
         continue;
       }
@@ -114,10 +113,10 @@ BaseDispatcher.prototype = Object.assign({}, BaseDispatcher.prototype, {
    * @internal
    */
   _invokeCallback: function(id) {
-  //  logger.info('Dispatching... - ' + id, moduleId);
+    //  logger.info('Dispatching... - ' + id, moduleId);
     _isPending[id] = true;
     _callbacks[id](_pendingPayload);
-  //  logger.info('Dispatched Done - ' + id, moduleId);
+    //  logger.info('Dispatched Done - ' + id, moduleId);
     _isHandled[id] = true;
   },
 
@@ -127,7 +126,7 @@ BaseDispatcher.prototype = Object.assign({}, BaseDispatcher.prototype, {
    * @internal
    */
   _startDispatching: function(payload) {
-  //  logger.info('Start Dispatch!', moduleId);
+    //  logger.info('Start Dispatch!', moduleId);
     for (var id in _callbacks) {
       _isPending[id] = false;
       _isHandled[id] = false;
@@ -142,7 +141,7 @@ BaseDispatcher.prototype = Object.assign({}, BaseDispatcher.prototype, {
    * @internal
    */
   _stopDispatching: function() {
-//    logger.info('Stop Dispatch!', moduleId);
+    //    logger.info('Stop Dispatch!', moduleId);
     _pendingPayload = null;
     _isDispatching = false;
   }

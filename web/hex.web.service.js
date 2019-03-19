@@ -4,7 +4,6 @@ const express = require('express');
 const http = require('http');
 const https = require('https');
 const helmet = require('helmet');
-const fs = require('fs');
 const path = require('path');
 
 const HexGeneralService = require('../hex.general.service');
@@ -107,6 +106,7 @@ class HexWebService extends HexGeneralService {
 
   _useRouter(basePath, router) {
     this._webServer.use(basePath, router.router);
+    router.setIsDebug(this._isDebug);
   }
 
   _defineExtModule(config) {
@@ -134,6 +134,7 @@ class HexWebService extends HexGeneralService {
 
     if (this._isSecure == true) {
       try {
+        var fs = require('fs');
         this._sslOptions = {
           key: fs.readFileSync(this._sslKeyFile),
           cert: fs.readFileSync(this._sslCertFile),

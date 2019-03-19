@@ -3,16 +3,16 @@ var uuid = require('uuid');
 var Immutable = require('immutable');
 
 // Constants and Types
-var HexPrimitiveType = require('../types/hex.primitive.type');
+var HexPrimitiveType = require('../../types/hex.primitive.type');
 
 // Modules
-var HexUUIdMgr = require('../io/hex.uuid.mgr');
-var HexFieldTypeMgr = require('../io/hex.field-type.mgr');
+var HexUUIdMgr = require('../../io/hex.uuid.mgr');
+var HexFieldTypeMgr = require('../../io/hex.field-type.mgr');
 
 // Tools
-var checker = require('../../core/tools/hex.checker');
-var logger = require('../../core/tools/hex.logger');
-var validator = require('../tools/hex.validator');
+var checker = require('../../tools/hex.checker');
+var logger = require('../../tools/hex.logger');
+var validator = require('../../tools/hex.validator');
 
 var HexStoreActionHelperClass = function(scope, storeModuleId) {
   this.scope = scope;

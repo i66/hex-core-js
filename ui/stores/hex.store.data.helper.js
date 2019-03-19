@@ -3,20 +3,20 @@ var uuid = require('uuid');
 var Immutable = require('immutable');
 
 // Constants and Types
-var HexPrimitiveType = require('../types/hex.primitive.type');
-var EboxUIFieldErrorType = require('../types/hex.field.error.type');
-var HexActionMethodType = require('../types/hex.action.method.type');
+var HexPrimitiveType = require('../../types/hex.primitive.type');
+var EboxUIFieldErrorType = require('../../types/hex.field.error.type');
+var HexActionMethodType = require('../../types/hex.action.method.type');
 
 // Modules
-var HexUUIdMgr = require('../io/hex.uuid.mgr');
-var HexFieldPropMgr = require('../io/hex.field-prop.mgr');
-var HexFieldMapper = require('../io/hex.field.mapper');
-var HexStoreDataMgr = require('../io/hex.store.data.mgr');
+var HexUUIdMgr = require('../../io/hex.uuid.mgr');
+var HexFieldPropMgr = require('../../io/hex.field-prop.mgr');
+var HexFieldMapper = require('../../io/hex.field.mapper');
+var HexStoreDataMgr = require('../../io/hex.store.data.mgr');
 
 // Tools
-var checker = require('../../core/tools/hex.checker');
-var validator = require('../tools/hex.validator');
-var util = require('../../core/tools/hex.util');
+var checker = require('../../tools/hex.checker');
+var validator = require('../../tools/hex.validator');
+var util = require('../../tools/hex.util');
 
 const MODULE_ID = 'HexStoreDataHelper';
 

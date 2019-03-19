@@ -3,7 +3,7 @@ var uuid = require('uuid');
 var HexBasePathMgr = require('./hex.base.path.mgr');
 var HexFileMgr = require('./hex.file.mgr.factory').getInstance();
 
-var path = global.require('path');
+var path = require('path');
 
 const MODULE_ID = 'HexLocalPathMgr';
 
@@ -16,11 +16,15 @@ var _workspaceRestorePath = null;
 var _resourcePath = null;
 
 // Linux & OSX
-var _homePath = global.process.env.HOME;
+var _homePath = '.';
 
-if (_homePath == undefined) {
-  // Windows
-  _homePath = global.process.env.USERPROFILE;
+if (global.process) {
+  _homePath = global.process.env.HOME;
+
+  if (_homePath == undefined) {
+    // Windows
+    _homePath = global.process.env.USERPROFILE;
+  }
 }
 
 var appInfo = null;
@@ -59,7 +63,7 @@ var HexLocalPathMgr = Object.assign(HexBasePathMgr, {
   setAppId: function(appId) {
       _appName = appId;
       initPathName();
-  },
+    },
 
   getBasePath: function() {
     return _fprBasePath;
@@ -91,7 +95,6 @@ var HexLocalPathMgr = Object.assign(HexBasePathMgr, {
   }
 
 });
-
 
 HexLocalPathMgr.init(MODULE_ID);
 module.exports = HexLocalPathMgr;

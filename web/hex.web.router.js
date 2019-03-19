@@ -18,6 +18,10 @@ class HexWebRouter extends HexGeneralModule {
     this._router.get(path, handler);
   }
 
+  _regStaticPath(path, localPath) {
+    this._router.use(path, express.static(localPath));
+  }
+
   /**
   * Register Post request handler
   *

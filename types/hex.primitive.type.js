@@ -1,0 +1,13 @@
+var HexPrimitiveType = {
+  STRING: 'STRING',
+  INTEGER: 'INTEGER',
+  FLOAT: 'FLOAT',
+  BOOLEAN: 'BOOLEAN',
+  POSITIVE_INTEGER: 'POSITIVE_INTEGER',
+  POSITIVE_FLOAT: 'POSITIVE_FLOAT',
+  ARRAY: 'ARRAY',
+  OBJECT: 'OBJECT',
+  NONE: 'NONE'
+};
+
+module.exports = HexPrimitiveType;

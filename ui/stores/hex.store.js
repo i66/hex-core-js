@@ -3,20 +3,20 @@ var Immutable = require('immutable');
 var EventEmitter = require('events').EventEmitter;
 
 // Constants and Types
-var HexActionType = require('../types/hex.action.type');
+var HexActionType = require('../../types/hex.action.type');
 
 // Modules
 var EboxUiDispatcher = require('../dispatcher/hex.dispatcher');
 var HexStoreDataHelper = require('./hex.store.data.helper');
 var HexStoreActionHelperClass = require('./hex.store.action.helper.class');
-var HexPathMgr = require('../io/hex.path.mgr.factory').getInstance();
-var HexFileMgr = require('../io/hex.file.mgr.factory').getInstance();
-var HexStoreDataMgr = require('../io/hex.store.data.mgr');
-var HexFileIoStatus = require('../types/hex.file.io.status');
+var HexPathMgr = require('../../io/hex.path.mgr.factory').getInstance();
+var HexFileMgr = require('../../io/hex.file.mgr.factory').getInstance();
+var HexStoreDataMgr = require('../../io/hex.store.data.mgr');
+var HexFileIoStatus = require('../../types/hex.file.io.status');
 
 // Tools
-var checker = require('../tools/hex.checker');
-var logger = require('../tools/hex.logger');
+var checker = require('../../tools/hex.checker');
+var logger = require('../../tools/hex.logger');
 
 var ID_ACTION_READY = HexActionType.READY;
 var ID_ACTION_SAVE_DONE = HexActionType.SAVE_DONE;

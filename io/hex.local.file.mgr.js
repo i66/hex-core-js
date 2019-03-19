@@ -3,10 +3,8 @@ var logger = require('../../core/tools/hex.logger');
 var HexFileIoStatus = require('../types/hex.file.io.status');
 var HexBaseFileMgr = require('./hex.base.file.mgr');
 
-var fs = global.require('fs');
-var path = global.require('path');
-var zipFolderFunc = global.require('zip-folder');
-var extractZip = global.require('extract-zip');
+var fs = require('fs');
+var path = require('path');
 
 const MODULE_ID = 'HexLocalFileMgr';
 
@@ -428,6 +426,7 @@ var HexLocalFileMgr = Object.assign(HexBaseFileMgr, {
 
   zipFolder: function(dirPath, filePath, callback, isDirectCall) {
     var _this = this;
+    var zipFolderFunc = global.require('zip-folder');
     zipFolderFunc(dirPath, filePath, function(err) {
       if (err) {
         if (isDirectCall == true) {
@@ -451,6 +450,7 @@ var HexLocalFileMgr = Object.assign(HexBaseFileMgr, {
 
   unzipFolder: function(filePath, dirPath, callback, isDirectCall) {
     var _this = this;
+    var extractZip = global.require('extract-zip');
     extractZip(filePath, {dir: dirPath}, function(err) {
       if (!checker.isSetNonNull(err)) {
         if (isDirectCall == true) {

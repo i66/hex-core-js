@@ -1,14 +1,14 @@
-var HexActionType = require('../types/hex.action.type');
+var HexActionType = require('../../types/hex.action.type');
 var HexStoreDataHelper = require('./hex.store.data.helper');
-var HexFileMgr = require('../io/hex.file.mgr.factory').getInstance();
-var HexStoreDataMgr = require('../io/hex.store.data.mgr');
-var HexAppConstant = require('../types/hex.app.constant');
+var HexFileMgr = require('../../io/hex.file.mgr.factory').getInstance();
+var HexStoreDataMgr = require('../../io/hex.store.data.mgr');
+var HexAppConstant = require('../../types/hex.app.constant');
 var HexStoreDataHelper = require('./hex.store.data.helper');
-var HexStore = require('../../core/stores/hex.store');
-var HexFileIoStatus = require('../types/hex.file.io.status');
+var HexStore = require('./hex.store');
+var HexFileIoStatus = require('../../types/hex.file.io.status');
 
-var checker = require('../../core/tools/hex.checker');
-var logger = require('../../core/tools/hex.logger');
+var checker = require('../../tools/hex.checker');
+var logger = require('../../tools/hex.logger');
 
 const MODULE_ID = 'EboxUiLangStore';
 const EXT_LANG_FILE = '.json';
