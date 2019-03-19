@@ -2,7 +2,6 @@ const express = require('express');
 const http = require('http');
 const https = require('https');
 const helmet = require('helmet');
-const fs = require('fs');
 const path = require('path');
 
 const HexGeneralService = require('../hex.general.service');
@@ -55,6 +54,7 @@ class HexWebService extends HexGeneralService {
 
   _useRouter(basePath, router) {
     this._webServer.use(basePath, router.router);
+    router.setIsDebug(this._isDebug);
   }
 
   _defineExtModule(config) {
@@ -66,8 +66,8 @@ class HexWebService extends HexGeneralService {
   _init(config, cb) {
     config = this._ensureConfig(config);
 
-    this._isDebug = validator.ensureBool(config.isDebug);
-    this._isSecure = validator.ensureBool(config.isSecure);
+    this._isDebug = validator.ensureBool(config.isDebug, this._isDebug);
+    this._isSecure = validator.ensureBool(config.isSecure, this._isSecure);
     this._port = validator.ensureInt(config.port, this._port);
     this._sslKeyFile =
       validator.ensureStr(config.sslKeyFile, this._sslKeyFile);
@@ -82,6 +82,7 @@ class HexWebService extends HexGeneralService {
 
     if (this._isSecure == true) {
       try {
+        var fs = require('fs');
         this._sslOptions = {
           key: fs.readFileSync(this._sslKeyFile),
           cert: fs.readFileSync(this._sslCertFile),
@@ -105,16 +106,17 @@ class HexWebService extends HexGeneralService {
 
   _startDetail(cb) {
 
-    var _this = this;
     var server = this._prepareServer();
 
+    var _this = this;
     server.on('error', function(e) {
       _this._logError('Failed to Start Server: {0}', e.toString());
       _this._resolveAsyncStatusStart(false, cb);
     });
 
     server.on('listening', function(e) {
-      _this._logInfo(_this._serviceName + ' Listening: {0}', _this._port);
+      _this._logInfo('{0} Listening: {1}, Debug: {2}',
+        _this._serviceName, _this._port, _this._isDebug);
       _this._resolveAsyncStatusStart(true, cb);
     });
 
@@ -125,7 +127,11 @@ class HexWebService extends HexGeneralService {
 
   _prepareServer() {
 
+<<<<<<< HEAD
     this._regPathHandler(this._webServer);
+=======
+    this._initResourceHandler();
+>>>>>>> save_my_work
 
     if (this._isSecure) {
       return https.createServer(this._sslOptions, this._webServer);
@@ -134,12 +140,25 @@ class HexWebService extends HexGeneralService {
     }
   }
 
+<<<<<<< HEAD
   _regStaticPath(webServer, webServicePath, localPath) {
     webServer.use(webServicePath, express.static(localPath));
   }
 
   _regPathHandler(webServer) {
 
+=======
+  _initResourceHandler() {
+
+  }
+
+  _regPathHandler(webServicePath, handler) {
+    this._webServer.get(webServicePath, handler);
+  }
+
+  _regStaticPath(webServicePath, localPath) {
+    this._webServer.use(webServicePath, express.static(localPath));
+>>>>>>> save_my_work
   }
 
   _getApiPath(basePath, subPath) {
