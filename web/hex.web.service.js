@@ -127,11 +127,7 @@ class HexWebService extends HexGeneralService {
 
   _prepareServer() {
 
-<<<<<<< HEAD
-    this._regPathHandler(this._webServer);
-=======
     this._initResourceHandler();
->>>>>>> save_my_work
 
     if (this._isSecure) {
       return https.createServer(this._sslOptions, this._webServer);
@@ -140,14 +136,6 @@ class HexWebService extends HexGeneralService {
     }
   }
 
-<<<<<<< HEAD
-  _regStaticPath(webServer, webServicePath, localPath) {
-    webServer.use(webServicePath, express.static(localPath));
-  }
-
-  _regPathHandler(webServer) {
-
-=======
   _initResourceHandler() {
 
   }
@@ -158,7 +146,6 @@ class HexWebService extends HexGeneralService {
 
   _regStaticPath(webServicePath, localPath) {
     this._webServer.use(webServicePath, express.static(localPath));
->>>>>>> save_my_work
   }
 
   _getApiPath(basePath, subPath) {
