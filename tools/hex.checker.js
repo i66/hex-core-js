@@ -49,6 +49,15 @@ HexChecker.prototype = Object.assign({}, HexChecker.prototype, {
     return this.isStr(n) && n.trim() != '';
   },
 
+  isNonEmptyStrMulti: function() {
+    for (var i = 0; i < arguments.length; i++) {
+      if (!this.isNonEmptyStr(arguments[i])) {
+        return false;
+      }
+    }
+    return true;
+  },
+
   isEmptyStr: function(n) {
     return !this.isNonEmptyStr(n);
   },
@@ -183,7 +192,20 @@ HexChecker.prototype = Object.assign({}, HexChecker.prototype, {
 
   isPc: function() {
     return !this.isWeb() && !this.isMobile();
-  }
+  },
+
+  idxItemArrayByKey: function(pKeyId, pKey, aryObj) {
+    if (!this.isSet(pKeyId) || !this.isArray(aryObj)) {
+      return null;
+    }
+
+    for (var i = 0; i < aryObj.length; i++) {
+      if (aryObj[i][pKeyId] == pKey) {
+        return i;
+      }
+    }
+    return -1;
+  },
 
 });
 
