@@ -138,7 +138,7 @@ HexLifeCycleHelperClass.prototype.updateStateSet = function(statObj, isMerge) {
     logger.info('SetState! ', this.id);
     logger.info(statObj);
   }
-  if (isMerge != false) {
+  if (isMerge == true) {
     var curStat = this.target.state;
     var mergedStat = Object.assign(curStat, statObj);
     this.target.setState(mergedStat);

@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const HexGeneralModule = require('../hex.general.module');
 
@@ -8,6 +9,8 @@ class HexWebRouter extends HexGeneralModule {
   constructor() {
     super();
     this._router = express.Router();
+    this._router.use(bodyParser.json());
+    this._router.use(bodyParser.urlencoded({extended: true}));
   }
 
   get router() {
@@ -33,9 +36,7 @@ class HexWebRouter extends HexGeneralModule {
   */
   _regPostHandler(path, handler) {
     this._router.post(path, function(req, res) {
-      req.on('data', function(dataStr) {
-        handler(dataStr, req, res);
-      });
+      handler(req.body, req, res);
     });
   }
 }

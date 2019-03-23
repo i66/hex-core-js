@@ -57,6 +57,24 @@ class HexWebService extends HexGeneralService {
     router.setIsDebug(this._isDebug);
   }
 
+  setAllowedOrigin(allowedOriginAry) {
+    this._setAllowedOrigin(allowedOriginAry);
+  }
+
+  _setAllowedOrigin(allowedOriginAry) {
+    this._webServer.use(function(req, res, next) {
+      var origin = req.headers.origin;
+      if (allowedOriginAry.indexOf(origin) > -1) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+      }
+      //res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8020');
+      res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+      res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      res.header('Access-Control-Allow-Credentials', true);
+      return next();
+    });
+  }
+
   _defineExtModule(config) {
     //this._regExtModule(MOD_AUTH_MGR, HexWebBaseAuthMgr);
     //this._regExtModule(MOD_KEY_MGR, HexWebBaseKeyMgr);

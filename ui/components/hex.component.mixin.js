@@ -43,6 +43,7 @@ var HexComponentMixin = {
     this._mxViewParamHelper = new HexViewParamHelperClass();
     this._mxCssHelper = new HexCssHelperClass();
     this._mxEventMap = {};
+    this._mxDataEventMap = {};
     this._mxLifeCycleHelper = new HexLifeCycleHelperClass(this.id, this);
     this._callIfDefined(this._mxPreInit);
     return this._mxLifeCycleHelper.getInitStatSet();
@@ -137,6 +138,9 @@ var HexComponentMixin = {
   mxSetEventHandler: function(eventType, handlerFunc) {
     this._mxEventMap[eventType] = handlerFunc;
   },
+  mxSetDataHandler: function(eventType, handlerFunc) {
+    this._mxDataEventMap[eventType] = handlerFunc;
+  },
 
   mxSetStatSet: function(statObj, isMerge) {
     this._mxLifeCycleHelper.updateStateSet(statObj, isMerge);
@@ -215,6 +219,17 @@ var HexComponentMixin = {
     return val;
   },
 
+  mxGetPropThenState: function(statKey, propKey, defaultValue) {
+    var res = this.mxGetProp(propKey);
+    if (!checker.isSetNonNull(res)) {
+      res = this.mxGetState(statKey);
+    }
+    if (!checker.isSetNonNull(res)) {
+      return defaultValue;
+    }
+    return res;
+  },
+
   mxGetPropFallback: function(key, viewParamKey, defaultValue) {
     var val = this.mxGetState(key, null);
     if (val == null && this._mxViewParamHelper != null) {
@@ -273,6 +288,11 @@ var HexComponentMixin = {
       return this.props.onEvent(eventType, param);
     }
   },
+  mxHandleData: function(eventType, param) {
+    if (this.props.onDataEvent) {
+      return this.props.onDataEvent(eventType, param);
+    }
+  },
   mxHandleEvent: function(eventType, param) {
     var handler = this._mxEventMap[eventType];
     if (checker.isFunction(handler)) {
@@ -283,6 +303,14 @@ var HexComponentMixin = {
     if (this._onEvent) {
       this._onEvent(eventType, param);
     }
+  },
+  mxHandleDataEvent: function(eventType, param) {
+    var handler = this._mxDataEventMap[eventType];
+    if (checker.isFunction(handler)) {
+      return handler(param);
+    }
+
+    return null;
   },
 
   // Private functions (need to be overrided)
