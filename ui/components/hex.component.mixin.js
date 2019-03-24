@@ -316,6 +316,29 @@ var HexComponentMixin = {
     return null;
   },
 
+  mxSetLocalProp: function(key, value) {
+    if (checker.isSetNonNull(Storage)) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+  },
+
+  mxGetLocalProp: function(key, defaultValue) {
+    if (checker.isSetNonNull(Storage)) {
+      var res = localStorage.getItem(key);
+      if (!checker.isSetNonNull(res)) {
+        return defaultValue;
+      }
+      try {
+        var data = JSON.parse(res);
+        return data;
+      } catch (err) {
+
+      }
+
+      return defaultValue;
+    }
+  }
+
   // Private functions (need to be overrided)
   // -----------------------------------------------------------------
 

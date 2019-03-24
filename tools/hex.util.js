@@ -406,11 +406,15 @@ HexUtil.prototype = Object.assign({}, HexUtil.prototype, {
     return str.split('').reverse().join('');
   },
 
-  newInstance(constructor, args) {
+  newInstance: function(constructor, args) {
     var args = Array.prototype.slice.call(args);
     args.unshift(null);
     return new (Function.prototype.bind.apply(
       constructor, args));
+  },
+
+  navToPage: function(url) {
+    window.location.replace(url);
   }
 
 });
