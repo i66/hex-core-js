@@ -138,6 +138,9 @@ var HexComponentMixin = {
   mxSetEventHandler: function(eventType, handlerFunc) {
     this._mxEventMap[eventType] = handlerFunc;
   },
+  mxSetForwardEvent: function(eventType, handlerFunc) {
+    this._mxEventMap[eventType] = this.mxEmitEvent.bind(this, eventType);
+  },
   mxSetDataHandler: function(eventType, handlerFunc) {
     this._mxDataEventMap[eventType] = handlerFunc;
   },
