@@ -3,9 +3,15 @@ const HexLocalFileMgr = require('./hex.local.file.mgr');
 const path = require('path');
 const checker = require('../tools/hex.checker');
 
+<<<<<<< HEAD
 class HexLocalPrefMgr extends HexGeneralModule {
   constructor(prefPath) {
     super('HexLocalPrefMgr');
+=======
+class HexLocalPrefEngine extends HexGeneralModule {
+  constructor(prefPath) {
+    super('HexLocalPrefEngine');
+>>>>>>> work
     this._prefPath = prefPath;
     this._prefJson = {};
   }
@@ -33,6 +39,26 @@ class HexLocalPrefMgr extends HexGeneralModule {
     }
     return defaultVal;
   }
+<<<<<<< HEAD
+=======
+}
+
+var prefEngine = null;
+class HexLocalPrefMgr {
+
+  static load(prefPath) {
+    prefEngine = new HexLocalPrefEngine(prefPath);
+    prefEngine.getReady();
+  }
+
+  static get(key, defaultVal) {
+    if (prefEngine == null) {
+      return defaultVal;
+    }
+
+    return prefEngine.get(key, defaultVal);
+  }
+>>>>>>> work
 
 }
 
