@@ -21,8 +21,12 @@ class HexWebRouter extends HexGeneralModule {
     this._router.get(path, handler);
   }
 
-  _regStaticPath(path, localPath) {
-    this._router.use(path, express.static(localPath));
+  _regStaticPath(path, localPath, isServeDotFile) {
+    var option = {};
+    if (isServeDotFile == true) {
+      option.dotfiles = 'allow';
+    }
+    this._router.use(path, express.static(localPath, option));
   }
 
   /**
