@@ -291,9 +291,9 @@ var HexComponentMixin = {
       return this.props.onEvent(eventType, param);
     }
   },
-  mxHandleData: function(eventType, param) {
+  mxHandleData: function(eventType, param, sender) {
     if (this.props.onDataEvent) {
-      return this.props.onDataEvent(eventType, param);
+      return this.props.onDataEvent(eventType, param, sender);
     }
   },
   mxHandleEvent: function(eventType, param) {
@@ -307,10 +307,10 @@ var HexComponentMixin = {
       this._onEvent(eventType, param);
     }
   },
-  mxHandleDataEvent: function(eventType, param) {
+  mxHandleDataEvent: function(eventType, param, sender) {
     var handler = this._mxDataEventMap[eventType];
     if (checker.isFunction(handler)) {
-      return handler(param);
+      return handler(param, sender);
     }
 
     return null;
